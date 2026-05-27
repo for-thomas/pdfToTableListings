@@ -3,6 +3,7 @@ import pandas as pd
 import re
 import time
 import streamlit as st
+import os
 
 st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
 
