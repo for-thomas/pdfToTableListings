@@ -7,8 +7,6 @@ import os
 
 st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
 
-st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
-
 st.title("📄 PDF to Excel Converter")
 st.write("Drag and drop your PDF below to extract the data into an Excel spreadsheet.")
 uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
@@ -97,7 +95,7 @@ with st.spinner("Converting to PDF...", show_time=True):
         public_key=os.getenv("ILOVEPDF_PUBLIC_KEY"),
         secret_key=os.getenv("ILOVEPDF_SECRET_KEY"),
     )
-    task = client.new_task("officepdf")
+    task = client.create_task("officepdf")
     task.add_file("output.xlsx")
     task.process()
     task.download("output.pdf")
