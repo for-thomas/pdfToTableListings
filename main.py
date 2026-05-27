@@ -46,6 +46,9 @@ with st.spinner("Converting to Excel...", show_time=True):
     # df = df[df[SUB_INDEX].isin(indexes_of_interest)]
     df[ARTICLE_NUM] = df[ARTICLE_NUM].apply(lambda x: re.sub("[^0-9]", "", str(x)))
 
+    # make sure PRODUCT_NUM is string and add padding zeros to make sure its of 7 digits
+    df[PRODUCT_NUM] = df[PRODUCT_NUM].apply(lambda x: str(x).zfill(7))
+
     def build_link(row):
         product_num = str(row[PRODUCT_NUM]).strip()
         article_num = str(row[ARTICLE_NUM]).strip()
