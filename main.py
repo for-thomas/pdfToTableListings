@@ -46,6 +46,9 @@ with st.spinner("Converting to Excel...", show_time=True):
     # df = df[df[SUB_INDEX].isin(indexes_of_interest)]
     df[ARTICLE_NUM] = df[ARTICLE_NUM].apply(lambda x: re.sub("[^0-9]", "", str(x)))
 
+    # remove all non-numeric characters from PRODUCT_NUM and make sure its string
+    df[PRODUCT_NUM] = df[PRODUCT_NUM].apply(lambda x: re.sub("[^0-9]", "", str(x)))
+
     # make sure PRODUCT_NUM is string and add padding zeros to make sure its of 7 digits
     df[PRODUCT_NUM] = df[PRODUCT_NUM].apply(lambda x: str(x).zfill(7))
 
@@ -91,7 +94,9 @@ st.download_button(
 with st.spinner("Converting to PDF...", show_time=True):
     # convert df link to html hyperlink
     df[PRODUCT_NUM] = df.apply(lambda row: f'<a href="{row["link"]}">{row[PRODUCT_NUM]}</a>', axis=1)
-    df["link"] = df["link"].apply(lambda x: f'<a href="{x}">{x}</a>')
+    df.drop(column="link", inplace=True)
+    
+    # df["link"] = df["link"].apply(lambda x: f'<a href="{x}">{x}</a>')
     # convert PRODUCT_NUM to same hyperlink but with the product number as the text
 
     html_table = df.to_html(index=False, escape=False)
