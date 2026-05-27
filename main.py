@@ -92,9 +92,9 @@ with st.spinner("Converting to PDF...", show_time=True):
     # convert df link to html hyperlink
     df["link"] = df["link"].apply(lambda x: f'<a href="{x}">{x}</a>')
     # convert PRODUCT_NUM to same hyperlink but with the product number as the text
-    df["link"] = df.apply(lambda row: f'<a href="{row["link"]}">{row[PRODUCT_NUM]}</a>', axis=1)
+    df[PRODUCT_NUM] = df.apply(lambda row: f'<a href="{row["link"]}">{row[PRODUCT_NUM]}</a>', axis=1)
 
-    html_table = df.to_html(escape=False)
+    html_table = df.to_html(index=False, escape=False)
 
     from weasyprint import HTML
 
@@ -102,9 +102,9 @@ with st.spinner("Converting to PDF...", show_time=True):
 <html>
 <head>
     <style>
-        body {{ font-family: Arial, sans-serif; }}
-        table {{ border-collapse: collapse; width: 100%; }}
-        th, td {{ padding: 8px; text-align: left; border: 1px solid #ddd; }}
+        body {{ font-family: Arial, sans-serif; font-size: 10px; }}
+        table {{ border-collapse: collapse; width: 100%; font-size: 10px; }}
+        th, td {{ padding: 3px; text-align: middle; border: 1px solid #ddd; }}
         th {{ background-color: #f2f2f2; }}
     </style>
 </head>
