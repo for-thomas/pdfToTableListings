@@ -107,8 +107,17 @@ with st.spinner("Converting to PDF...", show_time=True):
     html_string = f"""
 <html>
 <head>
+    <style type="text/css">
+    @media print {
+        @page {
+        margin: 0; /* Removes default browser print margins */
+        }
+        body {
+        margin: 0; /* Ensures content starts at the very edge of the paper */
+        }
+    }
+    </style>
     <style>
-        @page {{ size: A4, margin: 0; }}
         body {{ font-family: Arial, sans-serif; font-size: 12px; }}
         table {{ border-collapse: collapse; width: 100%; font-size: 12px; margin: 0 auto; }}
         th, td {{ padding: 3px; text-align: middle; border: 1px solid #ddd; }}
