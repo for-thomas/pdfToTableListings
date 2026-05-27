@@ -154,4 +154,4 @@ if st.button("🔄 Start Again"):
     st.rerun()
 
 st.subheader("👀 PDF Preview")
-components.html(html_string, height=400, scrolling=True)
+components.html(html_string, height=600, scrolling=True)
