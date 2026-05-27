@@ -151,4 +151,31 @@ if st.button("🔄 Start Again"):
     st.rerun()
 
 st.subheader("👀 PDF Preview")
-components.html(html_string, height=600, width=1200, scrolling=True)
+
+
+html_preview = f"""
+<html>
+<head>
+    <style type="text/css">
+    @media print {{
+        @page {{
+        margin: 0; /* Removes default browser print margins */
+        }}
+        body {{
+        margin: 0; /* Ensures content starts at the very edge of the paper */
+        }}
+    }}
+    </style>
+    <style>
+        body {{ font-family: Arial, sans-serif; font-size: 12px; }}
+        table {{ border-collapse: collapse; width: 100%; font-size: 12px; margin: 0 auto; foreground-color: #444;}}
+        th, td {{ padding: 3px; text-align: middle; border: 1px solid #444; foreground-color: #444; }}
+        th {{ background-color: #f2f2f2; }}
+    </style>
+</head>
+<body>
+    {html_table}
+</body>
+</html>
+"""
+components.html(html_preview, height=600, width=1200, scrolling=True)
