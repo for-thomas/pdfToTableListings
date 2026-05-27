@@ -2,10 +2,24 @@ import tabula
 import pandas as pd
 import re
 import time
+import streamlit as st
 
+st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
 
-# Path to your PDF file
-pdf_path = "1.pdf"
+st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
+
+st.title("📄 PDF to Excel Converter")
+st.write("Drag and drop your PDF below to extract the data into an Excel spreadsheet.")
+uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
+
+if uploaded_file is not None:
+    # Save the uploaded file to a temporary location
+    pdf_path = "temp.pdf"
+    with open(pdf_path, "wb") as f:
+        f.write(uploaded_file.getbuffer())
+else:
+    st.warning("Please upload a PDF file to proceed.")
+    st.stop()
 
 SUB_INDEX = "סאב\rאינדקס"
 ARTICLE_NUM = "מס'\rארטיקל"
@@ -50,3 +64,18 @@ for r, row in enumerate(dataframe_to_rows(df, index=False, header=True), 1):
 
 wb.save('output.xlsx')
 print("Excel file 'output.xlsx' created with hyperlinks in the product number column.")
+
+st.success("Conversion complete!")
+
+# 4. The Download Button
+st.download_button(
+    label="📥 Download Excel File",
+    data=open('output.xlsx', 'rb').read(),
+    file_name="converted_data.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+# 5. Restart Button
+if st.button("🔄 Start Again"):
+    st.rerun()
+
