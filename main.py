@@ -89,15 +89,17 @@ st.download_button(
 )
 
 with st.spinner("Converting to PDF...", show_time=True):
-    # save table in a pdf file
-    from spire.xls import Workbook
+    # use ILOVEPDF API to convert the excel file to pdf
+    from iloveapi import ILoveApi
 
-    workbook = Workbook()
-    workbook.LoadFromFile("output.xlsx")
-
-    # Save to PDF
-    workbook.SaveToFile("output.pdf")
-    workbook.Dispose()
+    client = ILoveApi(
+        public_key=os.getenv("ILOVEPDF_PUBLIC_KEY"),
+        secret_key=os.getenv("ILOVEPDF_SECRET_KEY"),
+    )
+    task = client.new_task("officepdf")
+    task.add_file("output.xlsx")
+    task.process()
+    task.download("output.pdf")
 
 
 st.success("Conversion to PDF complete!")
