@@ -95,8 +95,26 @@ with st.spinner("Converting to PDF...", show_time=True):
 
     html_string = df.to_html(escape=False)
 
-    import pdfkit
-    pdfkit.from_string(html_string, "output.pdf")
+    from weasyprint import HTML
+
+    html_string = f"""
+<html>
+<head>
+    <style>
+        body {{ font-family: Arial, sans-serif; }}
+        table {{ border-collapse: collapse; width: 100%; }}
+        th, td {{ padding: 8px; text-align: left; border: 1px solid #ddd; }}
+        th {{ background-color: #f2f2f2; }}
+    </style>
+</head>
+<body>
+    {html_table}
+</body>
+</html>
+"""
+
+    pdf_buffer = io.BytesIO()
+    HTML(string=html_string).write_pdf(pdf_buffer)
 
     # use ILOVEPDF API to convert the excel file to pdf
 
@@ -118,7 +136,7 @@ st.success("Conversion to PDF complete!")
 # 4. The Download Button
 st.download_button(
     label="📥 Download PDF File",
-    data=open('output.pdf', 'rb').read(),
+    data=pdf_buffer.getvalue(),
     file_name="converted_data.pdf",
     mime="application/pdf"
 )
