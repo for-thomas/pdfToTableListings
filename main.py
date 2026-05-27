@@ -113,5 +113,6 @@ st.download_button(
 
 # 5. Restart Button
 if st.button("🔄 Start Again"):
+    uploaded_file = None
     st.rerun()
 
