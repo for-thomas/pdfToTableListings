@@ -108,14 +108,14 @@ with st.spinner("Converting to PDF...", show_time=True):
 <html>
 <head>
     <style type="text/css">
-    @media print {
-        @page {
+    @media print {{
+        @page {{
         margin: 0; /* Removes default browser print margins */
-        }
-        body {
+        }}
+        body {{
         margin: 0; /* Ensures content starts at the very edge of the paper */
-        }
-    }
+        }}
+    }}
     </style>
     <style>
         body {{ font-family: Arial, sans-serif; font-size: 12px; }}
@@ -132,19 +132,6 @@ with st.spinner("Converting to PDF...", show_time=True):
 
     pdf_buffer = io.BytesIO()
     HTML(string=html_string).write_pdf(pdf_buffer)
-
-    # use ILOVEPDF API to convert the excel file to pdf
-
-    # from iloveapi import ILoveApi
-
-    # client = ILoveApi(
-    #     public_key=os.getenv("ILOVEPDF_PUBLIC_KEY"),
-    #     secret_key=os.getenv("ILOVEPDF_SECRET_KEY"),
-    # )
-    # task = client.create_task("officepdf")
-    # task.add_file("output.xlsx")
-    # task.process()
-    # task.download("output.pdf")
 
 
 st.success("Conversion to PDF complete!")
