@@ -18,7 +18,7 @@ if "pdf_buffer" not in st.session_state:
 
 st.title("📄 PDF to Excel Converter")
 st.write("Drag and drop your PDF below to extract the data into an Excel spreadsheet.")
-uploaded_file = st.file_uploader("Choose a PDF file", type="pdf", key="uploaded_file")
+st.session_state.uploaded_file = st.file_uploader("Choose a PDF file", type="pdf", key="uploaded_file")
 
 if st.session_state.uploaded_file is not None:
     # Save the uploaded file to a temporary location
