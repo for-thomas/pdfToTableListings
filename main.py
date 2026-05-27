@@ -105,7 +105,6 @@ st.download_button(
     file_name="converted_data.pdf",
     mime="application/pdf"
 )
-)
 
 # 5. Restart Button
 if st.button("🔄 Start Again"):
