@@ -108,7 +108,7 @@ with st.spinner("Converting to PDF...", show_time=True):
 <html>
 <head>
     <style>
-        page {{ size: A4, margin: 0; }}
+        @page {{ size: A4, margin: 0; }}
         body {{ font-family: Arial, sans-serif; font-size: 12px; }}
         table {{ border-collapse: collapse; width: 100%; font-size: 12px; margin: 0 auto; }}
         th, td {{ padding: 3px; text-align: middle; border: 1px solid #ddd; }}
