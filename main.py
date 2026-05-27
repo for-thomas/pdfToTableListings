@@ -3,6 +3,7 @@ import pandas as pd
 import re
 import time
 import streamlit as st
+import streamlit.components.v1 as components
 import os
 import io
 
@@ -107,8 +108,8 @@ with st.spinner("Converting to PDF...", show_time=True):
 <html>
 <head>
     <style>
-        body {{ font-family: Arial, sans-serif; font-size: 1vw; }}
-        table {{ border-collapse: collapse; width: 100%; font-size: 1vw; margin: 0 auto; }}
+        body {{ font-family: Arial, sans-serif; font-size: clamp(1rem, 2vw, 1.125rem); }}
+        table {{ border-collapse: collapse; width: 100%; font-size: clamp(1rem, 2vw, 1.125rem); margin: 0 auto; }}
         th, td {{ padding: 3px; text-align: middle; border: 1px solid #ddd; }}
         th {{ background-color: #f2f2f2; }}
     </style>
@@ -152,3 +153,5 @@ if st.button("🔄 Start Again"):
     uploaded_file = None
     st.rerun()
 
+st.subheader("👀 PDF Preview")
+components.html(html_string, height=400, scrolling=True)
