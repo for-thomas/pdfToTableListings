@@ -90,9 +90,9 @@ st.download_button(
 
 with st.spinner("Converting to PDF...", show_time=True):
     # convert df link to html hyperlink
+    df[PRODUCT_NUM] = df.apply(lambda row: f'<a href="{row["link"]}">{row[PRODUCT_NUM]}</a>', axis=1)
     df["link"] = df["link"].apply(lambda x: f'<a href="{x}">{x}</a>')
     # convert PRODUCT_NUM to same hyperlink but with the product number as the text
-    df[PRODUCT_NUM] = df.apply(lambda row: f'<a href="{row["link"]}">{row[PRODUCT_NUM]}</a>', axis=1)
 
     html_table = df.to_html(index=False, escape=False)
 
@@ -103,7 +103,7 @@ with st.spinner("Converting to PDF...", show_time=True):
 <head>
     <style>
         body {{ font-family: Arial, sans-serif; font-size: 10px; }}
-        table {{ border-collapse: collapse; width: 100%; font-size: 10px; }}
+        table {{ border-collapse: collapse; width: 100%; font-size: 10px; margin: 0 auto; }}
         th, td {{ padding: 3px; text-align: middle; border: 1px solid #ddd; }}
         th {{ background-color: #f2f2f2; }}
     </style>
