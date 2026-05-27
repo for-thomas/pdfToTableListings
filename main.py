@@ -9,20 +9,15 @@ import io
 
 st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
 
-if "conversion_done" not in st.session_state:
-    st.session_state.conversion_done = False
-if "pdf_buffer" not in st.session_state:
-    st.session_state.pdf_buffer = None
-
 st.title("📄 PDF to Excel Converter")
 st.write("Drag and drop your PDF below to extract the data into an Excel spreadsheet.")
-st.session_state.uploaded_file = st.file_uploader("Choose a PDF file", type="pdf", key="uploaded_file")
+uploaded_file = st.file_uploader("Choose a PDF file", type="pdf")
 
-if st.session_state.uploaded_file is not None:
+if uploaded_file is not None:
     # Save the uploaded file to a temporary location
     pdf_path = "temp.pdf"
     with open(pdf_path, "wb") as f:
-        f.write(st.session_state.uploaded_file.getbuffer())
+        f.write(uploaded_file.getbuffer())
 else:
     st.warning("Please upload a PDF file to proceed.")
     st.stop()
@@ -85,7 +80,6 @@ with st.spinner("Converting to Excel...", show_time=True):
 
     wb.save('output.xlsx')
     print("Excel file 'output.xlsx' created with hyperlinks in the product number column.")
-    st.session_state.excel_created = True
 
 st.success("Conversion to Excel complete!")
 
@@ -138,7 +132,6 @@ with st.spinner("Converting to PDF...", show_time=True):
 
     pdf_buffer = io.BytesIO()
     HTML(string=html_string).write_pdf(pdf_buffer)
-    st.session_state.pdf_buffer = pdf_buffer
 
 
 st.success("Conversion to PDF complete!")
@@ -147,18 +140,15 @@ st.success("Conversion to PDF complete!")
 # 4. The Download Button
 st.download_button(
     label="📥 Download PDF File",
-    data=st.session_state.pdf_buffer.getvalue(),
+    data=pdf_buffer.getvalue(),
     file_name="converted_data.pdf",
     mime="application/pdf"
 )
 
 # 5. Restart Button
 if st.button("🔄 Start Again"):
-    # reset session state for a fresh start
-    for k in ["uploaded_file", "pdf_buffer", "conversion_done", "excel_created"]:
-        if k in st.session_state:
-            del st.session_state[k]
-    st.experimental_rerun()
+    uploaded_file = None
+    st.rerun()
 
 st.subheader("👀 PDF Preview")
 components.html(html_string, height=600, width=1200, scrolling=True)
