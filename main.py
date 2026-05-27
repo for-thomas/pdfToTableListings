@@ -108,8 +108,8 @@ with st.spinner("Converting to PDF...", show_time=True):
 <html>
 <head>
     <style>
-        body {{ font-family: Arial, sans-serif; font-size: clamp(1rem, 2vw, 1.125rem); }}
-        table {{ border-collapse: collapse; width: 100%; font-size: clamp(1rem, 2vw, 1.125rem); margin: 0 auto; }}
+        body {{ font-family: Arial, sans-serif; font-size: 12px; }}
+        table {{ border-collapse: collapse; width: 100%; font-size: 12px; margin: 0 auto; }}
         th, td {{ padding: 3px; text-align: middle; border: 1px solid #ddd; }}
         th {{ background-color: #f2f2f2; }}
     </style>
