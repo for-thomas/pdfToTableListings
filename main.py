@@ -11,8 +11,6 @@ st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
 
 if "conversion_done" not in st.session_state:
     st.session_state.conversion_done = False
-if "uploaded_file" not in st.session_state:
-    st.session_state.uploaded_file = None
 if "pdf_buffer" not in st.session_state:
     st.session_state.pdf_buffer = None
 
