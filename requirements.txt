@@ -1,3 +1,4 @@
 tabula
+tabula-py
 pandas
 streamlit 
