@@ -1,4 +1,5 @@
 tabula-py
 pandas
 streamlit 
-jpype1 
+jpype1
+openpyxl
