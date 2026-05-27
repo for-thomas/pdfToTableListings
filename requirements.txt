@@ -3,3 +3,4 @@ pandas
 streamlit 
 jpype1
 openpyxl
+spire.xls

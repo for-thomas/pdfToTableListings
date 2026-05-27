@@ -73,7 +73,22 @@ for r, row in enumerate(dataframe_to_rows(df, index=False, header=True), 1):
 wb.save('output.xlsx')
 print("Excel file 'output.xlsx' created with hyperlinks in the product number column.")
 
-st.success("Conversion complete!")
+st.success("Conversion to Excel complete!")
+
+
+# save table in a pdf file
+from spire.xls import Workbook
+
+workbook = Workbook()
+workbook.LoadFromFile("output.xlsx")
+
+# Save to PDF
+workbook.SaveToFile("output.pdf")
+workbook.Dispose()
+
+
+
+st.success("Conversion to PDF complete!")
 
 # 4. The Download Button
 st.download_button(
@@ -81,6 +96,15 @@ st.download_button(
     data=open('output.xlsx', 'rb').read(),
     file_name="converted_data.xlsx",
     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+)
+
+# 4. The Download Button
+st.download_button(
+    label="📥 Download PDF File",
+    data=open('output.pdf', 'rb').read(),
+    file_name="converted_data.pdf",
+    mime="application/pdf"
+)
 )
 
 # 5. Restart Button
