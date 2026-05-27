@@ -1,5 +1,3 @@
 tabula
-pandas 
-re
-time
+pandas
 streamlit 
