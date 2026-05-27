@@ -94,7 +94,7 @@ st.download_button(
 with st.spinner("Converting to PDF...", show_time=True):
     # convert df link to html hyperlink
     df[PRODUCT_NUM] = df.apply(lambda row: f'<a href="{row["link"]}">{row[PRODUCT_NUM]}</a>', axis=1)
-    df.drop(column="link", inplace=True)
+    df.drop(columns="link", inplace=True)
     
     # df["link"] = df["link"].apply(lambda x: f'<a href="{x}">{x}</a>')
     # convert PRODUCT_NUM to same hyperlink but with the product number as the text
