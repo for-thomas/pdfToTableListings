@@ -30,6 +30,14 @@ tables = tabula.read_pdf(pdf_path, pages="all", multiple_tables=True)
 indexes_of_interest = ["F 05", "F 40", "F 70", "F 82"]
 
 df = pd.concat(tables, ignore_index=True)
+
+# fix df column name in case of typos
+if SUB_INDEX not in df.columns:
+    for col in df.columns:
+        if SUB_INDEX[:3] in col:
+            df.rename(columns={col: SUB_INDEX}, inplace=True)
+            break
+
 all_categories = indexes_of_interest + [x for x in df[SUB_INDEX].unique() if x not in indexes_of_interest]
 df[SUB_INDEX] = pd.Categorical(df[SUB_INDEX], categories=all_categories, ordered=True)
 df = df.sort_values(SUB_INDEX).reset_index(drop=True)
