@@ -1,3 +1,2 @@
 default-jdk
 libicu-dev
-wkhtmltopdf
