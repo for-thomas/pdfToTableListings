@@ -4,6 +4,7 @@ import re
 import time
 import streamlit as st
 import os
+import io
 
 st.set_page_config(page_title="PDF to Excel Converter", layout="centered")
 
