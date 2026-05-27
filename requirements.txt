@@ -4,4 +4,3 @@ streamlit
 jpype1
 openpyxl
 spire.xls
-libicu-dev
