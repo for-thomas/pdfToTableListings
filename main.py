@@ -88,17 +88,28 @@ st.download_button(
 )
 
 with st.spinner("Converting to PDF...", show_time=True):
-    # use ILOVEPDF API to convert the excel file to pdf
-    from iloveapi import ILoveApi
+    # convert df link to html hyperlink
+    df["link"] = df["link"].apply(lambda x: f'<a href="{x}">{x}</a>')
+    # convert PRODUCT_NUM to same hyperlink but with the product number as the text
+    df["link"] = df.apply(lambda row: f'<a href="{row["link"]}">{row[PRODUCT_NUM]}</a>', axis=1)
 
-    client = ILoveApi(
-        public_key=os.getenv("ILOVEPDF_PUBLIC_KEY"),
-        secret_key=os.getenv("ILOVEPDF_SECRET_KEY"),
-    )
-    task = client.create_task("officepdf")
-    task.add_file("output.xlsx")
-    task.process()
-    task.download("output.pdf")
+    html_string = df.to_html(escape=False)
+
+    import pdfkit
+    pdfkit.from_string(html_string, "output.pdf")
+
+    # use ILOVEPDF API to convert the excel file to pdf
+
+    # from iloveapi import ILoveApi
+
+    # client = ILoveApi(
+    #     public_key=os.getenv("ILOVEPDF_PUBLIC_KEY"),
+    #     secret_key=os.getenv("ILOVEPDF_SECRET_KEY"),
+    # )
+    # task = client.create_task("officepdf")
+    # task.add_file("output.xlsx")
+    # task.process()
+    # task.download("output.pdf")
 
 
 st.success("Conversion to PDF complete!")
