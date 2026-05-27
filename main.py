@@ -21,7 +21,7 @@ else:
     st.warning("Please upload a PDF file to proceed.")
     st.stop()
 
-with st.spinner("Wait for it...", show_time=True):
+with st.spinner("Converting to Excel...", show_time=True):
     SUB_INDEX = "סאב\rאינדקס"
     ARTICLE_NUM = "מס'\rארטיקל"
     PRODUCT_NUM = "מס'\rפרודקט"
